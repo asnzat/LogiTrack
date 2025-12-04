@@ -1,3 +1,5 @@
+# LogiTrack Lite - Frontend
+
 A modern, responsive frontend for the LogiTrack Lite logistics management system. Built with React, Vite, and TailwindCSS.
 
 Features
