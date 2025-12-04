@@ -4,123 +4,56 @@ A modern, responsive frontend for the LogiTrack Lite logistics management system
 
 ## Features
 
-- **Authentication**: Secure login and registration with JWT tokens
-- **Role-Based Access**: Different dashboards for Admin and Driver roles
-- **Shipment Management**: Create, view, and track shipments
-- **Real-Time Tracking**: Public tracking page for customers
-- **Responsive Design**: Mobile-friendly interface with TailwindCSS
-- **State Management**: Zustand for global state management
-- **Form Validation**: React Hook Form for robust form handling
+- Authentication with JWT (access token stored in localStorage, refresh token in httpOnly cookie)
+- Role-based UI for Admin and Driver
+- Shipment management: create, view, update status
+- Public tracking page for customers
+- Lightweight global state with Zustand
+- Forms handled with React Hook Form
+- TailwindCSS utility-first styling
 
-## Tech Stack
+## Key files / exports
 
-- **React 18** - UI library
-- **Vite** - Build tool and dev server
-- **React Router DOM** - Client-side routing
-- **TailwindCSS** - Utility-first CSS framework
-- **Axios** - HTTP client for API calls
-- **Zustand** - Lightweight state management
-- **React Hook Form** - Form validation and handling
-- **Lucide React** - Icon library
+- API layer: [`authService`](logitrack-lite/src/services/api.js), [`shipmentService`](logitrack-lite/src/services/api.js) — see [src/services/api.js](logitrack-lite/src/services/api.js)
+- Auth store: [`useAuthStore`](logitrack-lite/src/store/useAuthStore.js) — see [src/store/useAuthStore.js](logitrack-lite/src/store/useAuthStore.js)
+- Main app entry: [src/main.jsx](logitrack-lite/src/main.jsx)
+- Routing and protected layout: [src/App.jsx](logitrack-lite/src/App.jsx)
 
 ## Prerequisites
 
-- Node.js (v16 or higher)
+- Node.js (v16+)
 - npm or yarn
-- Backend API running on `http://localhost:5000`
+- Backend API running at http://localhost:5000 (see backend README: [logitrack-backend/README.md](logitrack-backend/README.md))
 
 ## Getting Started
 
-1. **Navigate to the frontend directory**:
-   ```bash
+1. Open the frontend folder:
+
+   ```sh
    cd logitrack-lite
    ```
 
-2. **Install dependencies**:
-   ```bash
+2. Install dependencies:
+
+   ```sh
    npm install
    ```
 
-3. **Start the development server**:
-   ```bash
+3. Start dev server:
+   ```sh
    npm run dev
    ```
+   The app will usually be available at http://localhost:5173
 
-   The application will be available at `http://localhost:5173`
+## Scripts
 
-4. **Build for production**:
-   ```bash
-   npm run build
-   ```
-
-## Demo Credentials
-
-The backend is seeded with the following demo accounts:
-
-- **Admin**: `admin@logitrack.com` / `password123`
-- **Driver 1**: `abebe@logitrack.com` / `password123`
-- **Driver 2**: `bekele@logitrack.com` / `password123`
-
-## Project Structure
-
-```
-logitrack-lite/
-├── src/
-│   ├── components/      # Reusable UI components
-│   ├── pages/          # Page components (Dashboard, Login, etc.)
-│   ├── services/       # API service layer
-│   ├── store/          # Zustand state management
-│   ├── context/        # React context providers
-│   ├── utils/          # Utility functions
-│   ├── App.jsx         # Main app component with routing
-│   └── main.jsx        # Application entry point
-├── public/             # Static assets
-└── index.html          # HTML template
-```
-
-## Available Scripts
-
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint
-
-## API Integration
-
-The frontend communicates with the backend API at `http://localhost:5000/api`. The API base URL can be configured in `src/services/api.js`.
-
-### Authentication Flow
-
-1. User logs in via `/login` or registers via `/register`
-2. Backend returns `{ user, accessToken }`
-3. Access token is stored in localStorage and sent with each request
-4. Refresh token is stored in httpOnly cookie for security
-
-## Features by Role
-
-### Admin Dashboard
-- View all shipments
-- Create new shipments
-- Assign drivers to shipments
-- Update shipment status
-- View shipment details
-
-### Driver Dashboard
-- View assigned shipments
-- Update shipment status
-- View shipment details
-- Track delivery progress
-
-### Public Features
-- Track shipments by tracking number
-- View shipment timeline and status
-
-## Environment Configuration
-
-The frontend expects the backend to be running on `http://localhost:5000`. To change this, update the `baseURL` in `src/services/api.js`.
+- npm run dev — start Vite dev server
+- npm run build — build production assets
+- npm run preview — preview production build
+- npm run lint — run ESLint
 
 ## Notes
 
-- Ensure the backend is running before starting the frontend
-- The application uses localStorage for user session management
-- All API calls include authentication tokens automatically via Axios interceptors
+- API base URL is configured in [src/services/api.js](logitrack-lite/src/services/api.js).
+- The app uses localStorage for the access token and sends it automatically via Axios interceptors (`authService`/`shipmentService`).
+- Demo backend accounts are seeded by the backend; see [logitrack-backend/README.md](logitrack-backend/README.md) for credentials and backend setup.
